@@ -5,7 +5,7 @@
 
 1. 下载[Zadig](https://zadig.akeo.ie)最新版本. 运行软件并打开完整的设备列表 (`Settings -> List of all devices`).
 2. 将摄像头连接到计算机的 USB 端口（套件附带的电线不起作用 - 里面没有数据触点，换数据线）并按下重置按钮，尽快从列表中选择设备HiUSBBurn并安装驱动libusbK程序。可能第一次不会成功（设备在几秒钟后消失，需要非常快地完成所有操作）。
-3. 下载 [HiTool](http://www.hihope.org/en/download/download.aspx?mtt=36).启动后，选择Hi3518EV300芯片。打开 HiBurn 工具后，选择选择分区表文件（usb-burn.xml）并指定fastboot（u-boot-hi3518ev300-universal.bin）、kernel（uImage.hi3518ev300） 和 rootfs文件（rootfs.squashfs.hi3518ev30）的路径。
+3. 下载 [HiTool](http://www.hihope.org/en/download/download.aspx?mtt=36).启动后，选择Hi3518EV300芯片。打开 HiBurn 工具后，选择选择分区表文件（usb-burn.xml）并指定fastboot（u-boot-hi3518ev300-universal.bin）、kernel（uImage.hi3518ev300） 和 rootfs文件（rootfs.squashfs.hi3518ev30）的路径。  
 4.点击 烧录 按钮，同意删除某些部分，然后按住重置按钮将摄像头连接到 USB接口。如果正常，刷机过程将开始。需要大约一分钟，弹出成功消弹窗结束。
 
 
