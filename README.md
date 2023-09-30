@@ -1,48 +1,40 @@
-## OpenIPC for Xiaomi MJSXJ02HL
+## OpenIPC for 小米 MJSXJ02HL 标准版 1080p智能摄像头
 
 
-### Installation
+### A安装
 
-1. Download the latest version of the [Zadig](https://zadig.akeo.ie) program. Run it and turn on the full list of devices (`Settings -> List of all devices`).
-2. Connect the camera to the USB port of the computer (the wire that comes with the kit will not work - there are no data contacts in it) with the Reset button pressed, select the `HiUSBBurn` device from the list as quickly as possible and install the `libusbK` driver for it. Most likely you will not succeed the first time (the device disappears after a few seconds, you need to do everything very quickly).
-3. Download the [HiTool](http://www.hihope.org/en/download/download.aspx?mtt=36) program. After its launch, select the `Hi3518EV300` chip. Having opened the HiBurn tool, select the [partition table file](https://raw.githubusercontent.com/OpenIPC/device-mjsxj02hl/master/usb-burn.xml) and specify the path to the [fastboot](https://github.com/OpenIPC/firmware/releases/download/latest/u-boot-hi3518ev300-universal.bin), [kernel and rootfs](https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3518ev300-nor-lite.tgz) files.
-4. Press `Burn` button, agree that some sections will be erased and connect the camera to USB with the Reset button pressed. If everything was done correctly, then the flashing process will begin. This usually takes about a minute and ends with an informational success message.
+1. 下载[Zadig](https://zadig.akeo.ie)最新版本. 运行软件并打开完整的设备列表 (`Settings -> List of all devices`).
+2. 将摄像头连接到计算机的 USB 端口（套件附带的电线不起作用 - 里面没有数据触点，换数据线）并按下重置按钮，尽快从列表中选择设备HiUSBBurn并安装驱动libusbK程序。可能第一次不会成功（设备在几秒钟后消失，需要非常快地完成所有操作）。
+3. 下载 [HiTool](http://www.hihope.org/en/download/download.aspx?mtt=36).启动后，选择Hi3518EV300芯片。打开 HiBurn 工具后，选择选择分区表文件（usb-burn.xml）并指定fastboot（u-boot-hi3518ev300-universal.bin）、kernel（uImage.hi3518ev300） 和 rootfs文件（rootfs.squashfs.hi3518ev30）的路径。
+4.点击 烧录 按钮，同意删除某些部分，然后按住重置按钮将摄像头连接到 USB接口。如果正常，刷机过程将开始。需要大约一分钟，弹出成功消弹窗结束。
 
 
 ### Configuration
 
-1. Create two `VFAT` partitions on your SD card (disable the quick format option).
-2. [Download](https://github.com/OpenIPC/device-mjsxj02hl/archive/refs/heads/master.zip) this repository and extract the contents of directory `flash` to the root of the first partition of your SD card.
-3. Using [Notepad++](https://notepad-plus-plus.org), open file `autoconfig/etc/network/interfaces.d/wlan0` and change the [SSID and password](https://github.com/OpenIPC/device-mjsxj02hl/blob/master/flash/autoconfig/etc/network/interfaces.d/wlan0#L14) of the Wi-Fi access point to your own (by default, these are `myssid` and `mypassword`).
-4. Turn off the camera's power, insert the SD card and turn it on again. If you did everything correctly, after a while (1-2 minutes) you will hear a shutter click and the camera will connect to your Wi-Fi network.
-5. Remove the SD card and reboot the device.
+1. 在 SD 卡上创建两个FAT32分区
+2.下载仓库并将flash目录内容解压到 SD 卡第一个分区的根目录中。
+3. 用文本编辑器打开 `autoconfig/etc/network/interfaces.d/wlan0`文件 改变成你自己的 [SSID 和password] (默认为 `myssid` 和 `mypassword`).
+4. 关闭相机电源，插入SD卡，然后再次打开。如果一切操作正确，过一会儿（1-2 分钟）后，您会听到快门声（有可能不会，白灯等2-3分钟就可以拔下来了），摄像头将连接到您的 Wi-Fi 网络。
+5. 重启摄像头电源
 
 
-### Using
+### 使用
 
-* Status of the built-in LEDs:
-    * *Orange* - The system is not loaded or Majestic is not running.
-    * *Blue* - The system is loaded and Majestic is running.
-    * *White* - The sysupgrade utility is running (install updates or wipe overlay partition).
-* Web Interface is available on port 85 as http://camera-ip:85. 
-    * Default login and password are `admin` and `12345`, respectively.
-* SSH access available as `ssh root@<camera_ip_address>`, there is no password by default. 
-    * After changing the password in the web, it also changes for the console.
-* Majestic Endpoints here - https://openipc.org/majestic-endpoints
-* Disable built-in LEDs `chmod -x /etc/init.d/S00autoled` and `chmod +x /etc/init.d/S00autoled` for enable it.
-* Disable automatic night mode `chmod -x /etc/init.d/S96autonight` and `chmod +x /etc/init.d/S96autonight` for enable it.
-* To reset the settings, hold down the Reset button, turn on the camera and wait for the white LED to light up.
-* You can find more information about using OpenIPC in our [Wiki](https://wiki.openipc.org).
+* 内置 LED 的状态:
+    * *橙色* - 系统未加载或 Majestic 未运行
+    * *Blue* - 系统已加载且 Majestic 正在运行。
+    * *White* - sysupgrade 实用程序正在运行（安装更新或擦除覆盖分区）。
+* Web 界面可在端口 85 上访问，网址为http://摄像头IP:85 （可以在路由器里面找）
+    * 默认登录名和密码分别为 `root` ， `12345`
+* SSH 访问可用ssh root@<camera_ip_address>，默认没有密码。
+    * 在 Web 中更改密码后，控制台的密码也会更改。
+* Majestic API接口 - https://openipc.org/majestic-endpoints
+* 禁用内置 LEDchmod -x /etc/init.d/S00autoled并chmod +x /etc/init.d/S00autoled启用它。
+* 禁用自动夜间模式chmod -x /etc/init.d/S96autonight并chmod +x /etc/init.d/S96autonight启用它。
+* 要重置设置，请按住重置按钮，打开相机并等待白色 LED 亮起。
+* 了解更多 OpenIPC 用法 [Wiki](https://wiki.openipc.org).
 
-
-### Bug reports
-
-* OpenIPC (firmware, packages, hardware): [https://github.com/OpenIPC/firmware/issues](https://github.com/OpenIPC/firmware/issues)
-* Majestic (streamer - sound, video, etc.): [https://github.com/OpenIPC/majestic/issues](https://github.com/OpenIPC/majestic/issues)
-* Microbe (web interface): [https://github.com/OpenIPC/microbe-web/issues](https://github.com/OpenIPC/microbe-web/issues)
-
-
-### References to the previous project
+### 项目参考
 
 * [MJSXJ02HL application](https://github.com/kasitoru/mjsxj02hl_application)
 * [Build tools for mjsxj02hl firmware](https://github.com/kasitoru/mjsxj02hl_firmware)
