@@ -1,0 +1,68 @@
+system:
+  webAdmin: enabled
+  buffer: 1024
+image:
+  mirror: true
+  flip: true
+  rotate: none
+  contrast: auto
+  hue: 50
+  saturation: 25
+  luminance: auto
+osd:
+  enabled: true
+  template: "OpenIPC v.2.2 | %F %T %Z"
+  posX: 16
+  posY: 16
+nightMode:
+  enabled: true
+  irCutPin1: 70
+  irCutPin2: 68
+  backlightPin: 54
+  dncDelay: 10
+records:
+  enabled: true
+  path: /mnt/mmcblk0p1/%Y/%m/%d/%H/%M.mp4
+  maxUsage: 95
+video0:
+  enabled: true
+  codec: h265
+  size: 1920x1080
+video1:
+  enabled: true
+  codec: h265
+jpeg:
+  enabled: true
+  size: 1920x1080
+  toProgressive: false
+mjpeg:
+  size: 640x360
+  fps: 5
+  bitrate: 1024
+audio:
+  enabled: true
+  volume: auto
+  srate: 8000
+  codec: pcm
+  outputEnabled: true
+  speakerPin: 55
+  speakerPinInvert: false
+  voiceEqualizer: common
+rtsp:
+  enabled: true
+  port: 554
+hls:
+  enabled: false
+youtube:
+  enabled: false
+motionDetect:
+  enabled: false
+  visualize: true
+  debug: true
+ipeye:
+  enabled: false
+watchdog:
+  enabled: true
+  timeout: 10
+onvif:
+  enabled: true
