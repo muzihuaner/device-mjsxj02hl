@@ -45,3 +45,9 @@
 * [Прошивка загрузчика IP-камеры MJSXJ02HL с помощью USB](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-usb/)
 * [Прошивка загрузчика IP-камеры MJSXJ02HL с помощью MicroSD карты](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-microsd-karty/)
 
+
+## MJSXJ02HL 恢复原厂固件
+下载https://github.com/muzihuaner/device-mjsxj02hl/tree/master/%E8%BF%98%E5%8E%9F%E5%9B%BA%E4%BB%B6
+还原固件mjsxj02hl_full-dump_4.0.5-0105_sign.bin
+使用HiTool 将fastboot 设置为mjsxj02hl_full-dump_4.0.5-0105_sign.bin 长度设置为16M 烧写即可
+
