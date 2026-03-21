@@ -1,19 +1,19 @@
 system:
-  webAdmin: enabled
   buffer: 1024
+  staticDir: /var/www/majestic
+isp:
+  iqProfile: /etc/sensors/iq/f23.ini
 image:
   mirror: true
   flip: true
   rotate: none
-  contrast: auto
+  contrast: 50
   hue: 50
-  saturation: 25
-  luminance: auto
+  saturation: 50
+  luminance: 50
 osd:
-  enabled: true
+  enabled: false
   template: "OpenIPC v.2.2 | %F %T %Z"
-  posX: 16
-  posY: 16
 nightMode:
   enabled: true
   irCutPin1: 70
@@ -21,27 +21,23 @@ nightMode:
   backlightPin: 54
   dncDelay: 10
 records:
-  enabled: true
+  enabled: false
   path: /mnt/mmcblk0p1/%Y/%m/%d/%H/%M.mp4
   maxUsage: 95
 video0:
   enabled: true
-  codec: h265
-  size: 1920x1080
+  codec: h264
 video1:
-  enabled: true
-  codec: h265
+  enabled: false
 jpeg:
   enabled: true
-  size: 1920x1080
-  toProgressive: false
 mjpeg:
   size: 640x360
   fps: 5
-  bitrate: 1024
+  bitrate: 2048
 audio:
   enabled: true
-  volume: auto
+  volume: 70
   srate: 8000
   codec: pcm
   outputEnabled: true
@@ -61,8 +57,15 @@ motionDetect:
   debug: true
 ipeye:
   enabled: false
+netip:
+  enabled: false
+  user: admin
+  password: 12345
+  port: 34567
+  snapshots: true
+  ignoreSetTime: false
+onvif:
+  enabled: false
 watchdog:
   enabled: true
-  timeout: 10
-onvif:
-  enabled: true
+  timeout: 30

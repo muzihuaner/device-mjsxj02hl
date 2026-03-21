@@ -1,53 +1,85 @@
-## OpenIPC for 小米 MJSXJ02HL 标准版 1080p智能摄像头
+## 适用于小米 MJSXJ02HL 的 OpenIPC
+
 
 
 ### 安装
 
-1. 下载[Zadig](https://github.com/muzihuaner/device-mjsxj02hl/blob/master/zadig-2.8.exe). 运行软件并打开完整的设备列表 (`Settings -> List of all devices`).
-2. 将摄像头连接到计算机的 USB 端口（套件附带的电线不起作用 - 里面没有数据触点，换数据线）并按下重置按钮，尽快从列表中选择设备HiUSBBurn并安装驱动libusbK程序。可能第一次不会成功（设备在几秒钟后消失，需要非常快地完成所有操作）。
-3. 下载 [HiTool](https://github.com/muzihuaner/device-mjsxj02hl/releases/tag/1.0).启动后，选择Hi3518EV300芯片。打开 HiBurn 工具后，选择选择分区表文件（usb-burn.xml）并指定fastboot（u-boot-hi3518ev300-universal.bin）、kernel（uImage.hi3518ev300） 和 rootfs文件（rootfs.squashfs.hi3518ev30）的路径。  
-4.点击 烧录 按钮，同意删除某些部分，然后按住重置按钮将摄像头连接到 USB接口。如果正常，刷机过程将开始。需要大约一分钟，弹出成功消弹窗结束。
 
+
+1. 下载最新版本的[Zadig](https://zadig.akeo.ie/)程序。运行它并打开设备的完整列表（`Settings -> List of all devices`）。
+2. 将相机连接到电脑的 USB 端口（套件中附带的连接线无法使用，因为它没有数据触点），同时按住重置按钮，`HiUSBBurn`尽快从设备列表中选择该设备并安装`libusbK`驱动程序。很可能第一次不会成功（设备会在几秒钟后消失，所以您需要快速操作）。
+3. 下载[HiTool](http://www.hihope.org/en/download/download.aspx?mtt=36)程序。启动后，选择`Hi3518EV300`芯片。打开 HiBurn 工具，选择[分区表文件](https://raw.githubusercontent.com/OpenIPC/device-mjsxj02hl/master/usb-burn.xml)，并指定[fastboot](https://github.com/OpenIPC/firmware/releases/download/latest/u-boot-hi3518ev300-universal.bin)、[kernel 和 rootfs](https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3518ev300-nor-lite.tgz)文件的路径。
+4. 按下`Burn`按钮，同意清除部分数据，然后按住重置按钮，将相机连接到 USB 接口。如果一切操作正确，刷机过程将开始。此过程通常需要大约一分钟，完成后会显示成功提示信息。
 
 ### 配置
 
-1. 在 SD 卡上创建两个FAT32分区
-2.下载仓库并将flash目录内容解压到 SD 卡第一个分区的根目录中。
-3. 用文本编辑器打开 `autoconfig/etc/network/interfaces.d/wlan0`文件 填你自己的 [SSID 和password] (默认为 `myssid` 和 `mypassword`).
-4. 关闭相机电源，插入SD卡，然后再次打开。如果一切操作正确，过一会儿（1-2 分钟）后，您会听到快门声（有可能不会，白灯等2-3分钟就可以拔下来了），摄像头将连接到您的 Wi-Fi 网络。
-5. 重启摄像头电源
 
+
+1. 在 SD 卡上创建两个FAT32分区
+
+2. [下载](https://github.com/OpenIPC/device-mjsxj02hl/archive/refs/heads/master.zip)此存储库并将**flash目录中的内容**解压到 SD 卡第一个分区的**根目录**。
+
+3. 使用[Notepad++](https://notepad-plus-plus.org/)打开文件，将Wi-Fi 接入点的[SSID 和密码](https://github.com/OpenIPC/device-mjsxj02hl/blob/master/flash/autoconfig/etc/network/interfaces.d/wlan0#L14)
+
+   `autoconfig/etc/network/interfaces.d/wlan0`
+
+   更改为您自己的（默认情况下，它们是`myssid``mypassword`)
+
+4. 关闭相机电源，插入SD卡，然后重新开机(灯由橙色变为白色)。如果操作正确，稍等片刻（1-2分钟），您会听到快门声，相机将连接到您的Wi-Fi网络。
+
+5. 取出SD卡并重启设备。
 
 ### 使用
 
-* 内置 LED 的状态:
-    * *橙色* - 系统未加载或 Majestic 未运行
-    * *Blue* - 系统已加载且 Majestic 正在运行。
-    * *White* - sysupgrade 实用程序正在运行（安装更新或擦除覆盖分区）。
-* Web 界面可在端口 85 上访问，网址为http://摄像头IP:85 （可以在路由器里面找）
-    * 默认登录名和密码分别为 `root` ， `12345`
-* SSH 访问可用ssh root@<camera_ip_address>，默认没有密码。
-    * 在 Web 中更改密码后，控制台的密码也会更改。
-* Majestic API接口 - https://openipc.org/majestic-endpoints
-* 禁用内置 LEDchmod -x /etc/init.d/S00autoled并chmod +x /etc/init.d/S00autoled启用它。
-* 禁用自动夜间模式chmod -x /etc/init.d/S96autonight并chmod +x /etc/init.d/S96autonight启用它。
-* 要重置设置，请按住重置按钮，打开相机并等待白色 LED 亮起。
-* 了解更多 OpenIPC 用法 [Wiki](https://wiki.openipc.org).
+- 内置LED指示灯状态：
 
-### 项目参考
+  - *橙色*- 系统未加载或 Majestic 未运行。
+  - *蓝色*- 系统已加载，Majestic 正在运行。
+  - *白色*- 系统升级实用程序正在运行（安装更新或擦除覆盖分区）。
 
-* [MJSXJ02HL application](https://github.com/kasitoru/mjsxj02hl_application)
-* [Build tools for mjsxj02hl firmware](https://github.com/kasitoru/mjsxj02hl_firmware)
-* [WEB interface for mjsxj02hl firmware](https://github.com/kasitoru/mjsxj02hl_web)
-* [mjsxj02hl_uboot](https://github.com/kasitoru/mjsxj02hl_uboot)
-* [Прошивка для IP-камеры MJSXJ02HL с поддержкой RTSP и MQTT](https://kasito.ru/mjsxj02hl_firmware/)
-* [Прошивка загрузчика IP-камеры MJSXJ02HL с помощью CH341A](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-ch341a/)
-* [Прошивка загрузчика IP-камеры MJSXJ02HL с помощью USB](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-usb/)
-* [Прошивка загрузчика IP-камеры MJSXJ02HL с помощью MicroSD карты](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-microsd-karty/)
+- Web界面可通过端口85访问，网址为
 
+  http://camera-ip:85
+
+  - 默认登录名和密码分别为`admin`和`12345`。
+
+- SSH 访问方式为
+
+  ```
+  ssh root@<camera_ip_address>
+  ```
+
+  ，默认情况下没有密码。
+
+  - 在网页上更改密码后，控制台的密码也会随之更改。
+
+- Majestic Endpoints 的相关信息请见此处 - https://openipc.org/majestic-endpoints
+
+- 禁用内置 LED 灯`chmod -x /etc/init.d/S00autoled`并`chmod +x /etc/init.d/S00autoled`启用它。
+
+- 关闭自动夜间模式`chmod -x /etc/init.d/S96autonight`并`chmod +x /etc/init.d/S96autonight`启用它。
+
+- 要重置设置，按住重置按钮，打开相机，等待白色 LED 指示灯亮起。
+
+- [您可以在我们的Wiki](https://wiki.openipc.org/)中找到更多关于使用 OpenIPC 的信息。
+
+### 错误报告
+
+- OpenIPC（固件、软件包、硬件）：https://github.com/OpenIPC/firmware/issues
+- Majestic（流媒体播放器 - 音频、视频等）：https://github.com/OpenIPC/majestic/issues
+- Microbe（网页界面）：https://github.com/OpenIPC/microbe-web/issues
+
+### 参考:
+
+- [MJSXJ02HL应用程序](https://github.com/kasitoru/mjsxj02hl_application)
+- [mjsxj02hl固件的构建工具](https://github.com/kasitoru/mjsxj02hl_firmware)
+- [mjsxj02hl固件的WEB界面](https://github.com/kasitoru/mjsxj02hl_web)
+- [mjsxj02hl_uboot](https://github.com/kasitoru/mjsxj02hl_uboot)
+- [适用于 IP-камеры MJSXJ02HL 和 RTSP 和 MQTT](https://kasito.ru/mjsxj02hl_firmware/)
+- [使用 CH341A 刷写 MJSXJ02HL IP 摄像头引导加载程序](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-ch341a/)
+- [通过 USB 刷写 MJSXJ02HL IP 摄像头引导程序](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-usb/)
+- [使用 MicroSD 卡刷写 MJSXJ02HL IP 摄像头引导程序](https://kasito.ru/proshivka-zagruzchika-ip-kamery-mjsxj02hl-s-pomoshhyu-microsd-karty/)
 
 ## MJSXJ02HL 恢复原厂固件
-下载https://github.com/muzihuaner/device-mjsxj02hl/tree/master/%E8%BF%98%E5%8E%9F%E5%9B%BA%E4%BB%B6
-还原固件mjsxj02hl_full-dump_4.0.5-0105_sign.bin
-使用HiTool 将fastboot 设置为mjsxj02hl_full-dump_4.0.5-0105_sign.bin 长度设置为16M 烧写即可
 
+下载还原固件mjsxj02hl_full-dump_4.0.5-0105_sign.bin 使用HiTool 将fastboot 设置为mjsxj02hl_full-dump_4.0.5-0105_sign.bin 长度设置为16M 烧写即可
